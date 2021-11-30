@@ -203,26 +203,36 @@
 /*********** ng-container ng-container ng-container ng-container ng-container ng-container ng-container ng-container ng-container *************/
 /*********** ng-container ng-container ng-container ng-container ng-container ng-container ng-container ng-container ng-container *************/
 
-// ANS:
+// ANS: It loads as comment in DOM but it displays his inside data 
+     // Use ng-container whenever it's possible instead of html elements to avoid adding extra nodes to DOM.
 /**
  * The Angular <ng-container> is a grouping element that doesn't interfere with styles or layout
  * because Angular doesn't put it in the DOM. ...We should use <ng-container> when we just want to apply multiple structural directives
  * without introducing any extra element in our DOM.
+ *
+ *      e.g: let arr = [
+ *                      {name: 'rohit' , amountPaid: true},
+*                       {name: 'harsh' , amountPaid: false},
+*                       {name: 'neha' , amountPaid: true},
+*                       {name: 'patil' , amountPaid: false}
+ *              ]
+ *
+ *      <div *ngFor="let d of arr">
+ *              <div *ngIf="d.amountPaid">{{d.name}}</div> //I will print 2 items but in DOM it creates 4.
+ *      </div>
+ *
+ *
+ *  NOTE: using <ng-container> we can avoid this just replace div with <ng-container>
  */
 
-/**********************************************************************************************************************************************
-/**********************************************************************************************************************************************
-/**********************************************************************************************************************************************
-
-
-
 /************ ng-template ******** ng-template *********** ng-template **************** ng-template ************ ng-template ******************** ng-template ***********************/
 /************ ng-template ******** ng-template *********** ng-template **************** ng-template ************ ng-template ******************** ng-template ***********************/
 /************ ng-template ******** ng-template *********** ng-template **************** ng-template ************ ng-template ******************** ng-template ***********************/
 
-// ANS:
+// ANS: It loads as comment in DOM and it hides his inside data 
 /**
- * ng-template is an Angular element used to render HTML templates. We use ng-template with angular *ngIf directive to display else template
+ * ng-template is an Angular element used to render HTML templates.
+ * We use ng-template with angular *ngIf directive to display else template
  */
 
 /**********************************************************************************************************************************************
@@ -296,16 +306,188 @@
 //URL with matrix params: http://some.where/thing;paramA=1;paramB=6542
 
 /**********************************************************************************************************************************************/
-/**********************************************************************************************************************************************/
-/**********************************************************************************************************************************************/
+
+/******* Optimization Strategies  *************** Optimization Strategies  **************** Optimization Strategies  ***************************/
+/******* Optimization Strategies  *************** Optimization Strategies  **************** Optimization Strategies  ***************************/
+/******* Optimization Strategies  *************** Optimization Strategies  **************** Optimization Strategies  ***************************/
+
+/**
+ * 1. Explain How to use NgZone?
+ *      => zone.js file detect async operations and run change detection.
+ */
+
+/**
+ * 2. ChangeDetectionStrategy: OnPush
+ *      => Whenever input or output (references) properties will change it will run change detection except manual change detection.
+ */
+
+/**
+ * 3. Run Outside Angular?
+ *      => Run code unit outside the angular-zone so that angular zone will not see any async operation changes
+ *         and will not start change detection.
+ *
+ *      this.ngZone.runOutsideAngular(()=> {
+            if(data >= 100)
+                this.ngZone.run(()=> {data = "Done"})
+            else
+                data += 1
+        })
+ */
+
+/**
+ * 4. Use Pure Pipes
+ *      => Pure pipes have no side-effects so the behavior is predictable and we can cache the input
+ *         It will called only once because cached results are just returned on subsequent calls.
+ */
+
+/**
+ * 5. Use TrackBy on *ngFor ( track on each item and see if value is changed or not if occour any change update the DOM)
+ *      => differ will see if any iterable array value is changed or not.
+ *         TrackBy will prevent the whole DOM from being constantly destroyed and re-created.
+ */
+
+/**
+ * 6. Use Web Workers => creates a another work thread to divide the load of main thread
+ *   command:  ng g web-worker webWorker
+ */
+
+/**
+ * 7. Use Lazy Loading
+ *      => It involves deferring the load of resources (images, audio, video, webpages) at load time till the time it’s needed then, it’s loaded.
+ */
 
 
-//Optimization strategies in Angular
-//1. Explain How to use NgZone?
+/******* ngTemplateOutlet ****************** ngTemplateOutlet ***************** ngTemplateOutlet ***************************************************/
+/******* ngTemplateOutlet ****************** ngTemplateOutlet ***************** ngTemplateOutlet ***************************************************/
+/******* ngTemplateOutlet ****************** ngTemplateOutlet ***************** ngTemplateOutlet ***************************************************/
 
-//2. ChangeDetectionStrategy: OnPush
+/**
+ * Why ngTemplateOutlet? => for reusing the template
+ *
+ *      => It can his div or ng-containter replace with <ng-template>
+ *      => context: { $implicit : 'Rohit Brand' } $implicit is the default key then for fetching take any name
+ *
+ * e.g
+ *   Common Template which we can use anywhere
+ *      <ng-template #brand>
+ *              <div>Template which we need use on multiple places like image and brand name</div>
+ *              <img src="http://picsum.photos/200" alt=""/>
+ *              <h3>Brand Name</h3>
+ *      </ng-template>
+ *
+ *  Q. How to use above template?
+ *      => <ng-container [ngTemplateOutlet]="brand"></ng-container> or any element like div
+ *
+ *  Q. But How to render brand name dynamic or change img url ?
+ *      => We need to pass the data which we call it as "context"
+ *
+ *         <ng-container [ngTemplateOutlet]="brand; context: { name: 'Rohit Brand' , imageURL: 'http://picsum.photos/400'}"></ng-container>
+ *
+ *
+ *  Q. How to get passed data in ng-template?
+ *      let-data => to fetch data
+ *      let-n="name" => alias of propertities
+ *      let-imgURL="imageURL" => alias of propertities
+ *
+ *      <ng-template #brand let-data let-n="name" let-imgURL="imageURL">
+ *              <div>Template which we need use on multiple places like image and brand name</div>
+ *              <img src="{{imgURL}}" alt=""/>
+ *              <h3>{{n}}</h3>
+ *      </ng-template>
+ *
+ */
+
+/******* Content Projection (will create configurable components) ****************** Content Projection ***************** Content Projection ***************************************************/
+/******* Content Projection ****************** Content Projection ***************** Content Projection ***************************************************/
+/******* Content Projection ****************** Content Projection ***************** Content Projection ***************************************************/
+
+/**
+ * Display parent html code which is written inside child selector into child html through <ng-content></ng-content>
+ *
+ * We can pass data through @Input but can we pass html template to child ?  => YES we can pass
+ * We can pass html from parent and will display that html through <ng-content></ng-content> in child
+ *
+ * app.component.html
+ *
+ * AVOID: <app-input [type]="'text'" [value]="'2'" [placeholder]="'John'"></app-input>
+ *      => because we have to write many lines of code in child like @Input type; @Input value; ...
+ *         and for handling events we have to use @Output and all) so we can get rid of all this by doing below thing
+ *
+ * USE:
+ *  <app-input> // child component instead of passing dynamic inputs(type,placeholder,value, etc.) to the app-input send html directly
+ *      <label class="label">Email Address</label>
+ *      <input type="text" (keyup.change)="handleEv($event)" placeholder="Company email"/>
+ *      <small id="smallCase">Your company email</small>
+ *      // we are just using here but control of this element is with app.component.ts file not with input.component.ts
+ *  </app-input>
+ *
+ * app.component.ts
+ *
+ * @Component({
+ *      selector: '<app-component></app-component>'
+ * })
+ *      handleEv(ev){
+ *              console.log("You will get data here", ev)
+ *      }
+ *
+ *
+ * input.component.html
+ *      <span> I belongs to input.component.html </span>
+ *      <span> I also belongs to input.component.html </span>
+ *
+ *      // We are projecting some content here from parent component
+ *      <ng-content></ng-content> // I belongs to app.component.ts file which is parent
+ *
+ *      NOTE: <ng-content></ng-content> will display all data directly
+ *
+ *      we can use multiple <ng-content> like:
+ *              <ng-content select="label"></ng-content> //so label tag will display here
+ *              <ng-content></ng-content> remaining code will go here
+ *              <ng-content select="small"></ng-content> //so small tag will display here
+ *
+ *   or select based on class or id etc
+ *              <ng-content select=".label"></ng-content> //so label tag will display here
+ *              <ng-content select="[id="smallCase"]"></ng-content>
+ *
+ *  IMPORTANT::IMPORTANT::IMPORTANT::IMPORTANT::IMPORTANT::IMPORTANT
+ *  IMPORTANT::IMPORTANT::IMPORTANT::IMPORTANT::IMPORTANT::IMPORTANT
+ *
+ *  but if you write <ng-content> multiple time without "select" it will just print only once
+ *
+ *              why? why? why? it should print multiple times right? the answer is NO
+ *      Reason:
+ *              Performance
+ *
+ * input.component.ts
+ * @Component({
+ *      selector: '<app-input></app-input>'
+ * })
+ */
 
 
+/******* TemplateRef & TemplateContainerRef ****************** TemplateRef & TemplateContainerRef ***************** TemplateRef & TemplateContainerRef ********************/
+/******* TemplateRef & TemplateContainerRef ****************** TemplateRef & TemplateContainerRef ***************** TemplateRef & TemplateContainerRef ********************/
+/******* TemplateRef & TemplateContainerRef ****************** TemplateRef & TemplateContainerRef ***************** TemplateRef & TemplateContainerRef ********************/
 
-
-
+/**
+ * To create structural custom directives we used TemplateRef and TemplateContainerRef
+ * e.g *myOwnIf
+ *
+ * import {TemplateRef, ViewContainerRef} from '@angular/core';
+ * @Directive({
+ *      selector: [myOwnIf]
+ * })
+ * constructor(public viewContainerRef: ViewContainerRef, public templateRef: TemplateRef<Object> ){}
+ * ngOnInit(){
+ *      const condition = true;
+ *      if(condition){
+ *              this.viewContainerRef.createEmbeddedView(this.templateRef);
+ *      }else{
+ *              this.viewContainerRef.clear()
+ *      }
+ * }
+ *
+ * <div *myOwnIf>Hello Rohit</div>
+ *
+ *
+ */

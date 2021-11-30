@@ -331,7 +331,7 @@
 /****************************************************************/
 // Hoisting:
 /****************************************************************/
-// functions and variable declaration will go on top of the code
+// functions declaration and variable declaration will go on top of the code
 // function expression will not hoisted.
 /****************************************************************/
 
@@ -344,8 +344,8 @@
 
 // var b = world();
 // console.log(b);
-// var world = function () {  //function expression
-//   return "world";               // world is not a function
+// var world = function () {  //function expression // world is not a function
+//   return "world";               
 // }
 /****************************************************************/
 
@@ -584,7 +584,7 @@
 
 /**
  * E.g If you forgot ur pen and you went for exam, what you will do, you will ask Pen to your friend but he doesn't have extra pen but
- * he is your good friend, he can't say no to u then what he will do, he will ask pen to his friend and then that pen will comes to u. That means {{ Delegation }}
+ * he is your good friend, he can't say no to u then what he will do, he will ask pen to his friend and then that pen will come to u. That means {{ Delegation }}
  */
 
 // let mobile = { company: 'OnePlus' };
@@ -642,8 +642,8 @@ Employee.prototype.slogan = function () {
 
 // Programmer.prototype = Employee.prototype                
 
-// let rohit = new Programmer('Rohit', 80, 8, 'JavaScript');
-// console.log(rohit.slogan())                                // TypeError: p.slogan is not a function 
+// let programmerInfo = new Programmer('Rohit', 80, 8, 'JavaScript');
+// console.log(programmerInfo.slogan())                                // TypeError: p.slogan is not a function 
 
 // How to access slogan method? 
 // add one line before object creation {Programmer.prototype = Employee.prototype}
@@ -1030,7 +1030,6 @@ __proto__: Object
 // var x = false;
 // console.log(x - 1);
 
-
 // var x = true;
 // console.log(x + 1);
 
@@ -1099,6 +1098,24 @@ __proto__: Object
 
 
 /***********************************************************************************************************/
+/***********************************************************************************************************/
+/************** Object.create ** Object.create ** Object.create ** Object.create ** Object.create ** Object.create ********************************
+/***********************************************************************************************************/
+
+// const person = {
+//   isHuman: false,
+//   printIntroduction: function () {
+//     console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+//   }
+// };
+
+// const me = Object.create(person);
+
+// me.name = 'Matthew'; // "name" is a property set on "me", but not on "person"
+// me.isHuman = true; // inherited properties can be overwritten
+
+// me.printIntroduction();
+// expected output: "My name is Matthew. Am I human? true"
 
 
 /***********************************************************************************************************/
@@ -1248,7 +1265,6 @@ __proto__: Object
  *    The copy and the original object will share same memory address.
  *    If the source value is a reference to an object, it only copies that reference value to the target object
  *    The copy and the original object will share anything.
- *    If the source value is a reference to an object, it only copies that reference value to the target object
  *
 /
 
@@ -1598,7 +1614,7 @@ __proto__: Object
 // console.log(arr.length)          // 3
 /***********************************************************************************************************/
 /**
- * Find how many times word came into an string
+ * Find how many times online word came into an string
  */
 // const str = 'This is online editor this is online editor';
 // const arr = str.split(' ');
@@ -1840,7 +1856,7 @@ __proto__: Object
 /***********************************************************************************************************/
 /***********************************************************************************************************/
 
-// console.log(("Hi").__proto__);    //[String: '']   // es line ka meaning Hi kaha se create kiya hai so ans is String objects
+// console.log(("Hi").__proto__);    //[String: '']   // es line ka meaning "Hi" kaha se create kiya hai so ans is String objects
 // console.log(("Hi").__proto__.__proto__);  // { }    // String object kaha se create kiya hai so ans is Object. This is JS main Object. 
 // console.log(("Hi").__proto__.__proto__.__proto__);    //null       JS ka main object kaha se create kiya hai so ans is null.
 // console.log(("Hi").__proto__.__proto__.__proto__.__proto__); // Cannot read property '__proto__' of null
@@ -2108,7 +2124,7 @@ What is Destruction?
 
 
 /**
- * .reduce required three parameters { previousValue, currentValue, index, arr }
+ * .reduce required four parameters { previousValue, currentValue, index, arr }
  */
 
 // const arr = [10, 2, 3, 4];
@@ -2139,7 +2155,7 @@ What is Destruction?
 /**
  * .sort required two parameters { a(required), b(required) }
  * NOTE: arr.sort() will always takes only first value
- * e.g.  [1,2,15,14,5,45,7]       // will think output is: 1,2,5,7,14,15,45   NO NO NO NO NO NO
+ * e.g.  [1,2,15,14,5,45,7]       // we will think output is: 1,2,5,7,14,15,45   NO NO NO NO NO NO
  * the o/p of above is:   1,14,15,2,45,5,7
  * so always use below code.
  */
@@ -2619,27 +2635,27 @@ What is Destruction?
  *
  * Why WeakMap?
  * Once you define Map key it's kind of holds it in memory
- * And it doesn't let it gabage collected even the original key is removed thats why we need {WeakMap}.
+ * And it doesn't let it gabage collected even the original key is removed that's why we need {WeakMap}.
  */
 
 /***********************************************************************************************************/
 
-// var k1 = { a: 1 };
-// var k2 = { b: 2 };
+// var obj1 = { a: 1 };
+// var obj2 = { b: 2 };
 
 // var map = new Map();
 // var wm = new WeakMap();
 
-// map.set(k1, 'k1');
-// wm.set(k2, 'k2');
+// map.set(obj1, 'obj1');
+// wm.set(obj2, 'obj2');
 
-// k1 = null;                              //k1 is null but still in next line we are getting value.
+// obj1 = null;                              //obj1 is null but still in next line we are getting value.
 // map.forEach(function (val, key) {
-//   console.log(key, val); // k1 {a: 1}
+//   console.log(key, val); // {a: 1} 'obj1'
 // });
 
-// k2 = null;
-// wm.get(k2); // undefined
+// obj2 = null;
+// wm.get(obj2); // undefined
 
 /***********************************************************************************************************/
 
@@ -3096,7 +3112,7 @@ asyncCall();
 /**
  * x = { a: 1, b: 2 };
  * y = { a: 1, b: 2 };
- * console.log(JSON.stringify(x) === JSON.stringify(y)) // true
+ * console.log(JSON.stringify(x) === JSON.stringify(y)) // true (because the order is same)
  */
 
 
@@ -3175,7 +3191,7 @@ asyncCall();
 /***********************************************************************************************************/
 
 /**
- *   Is this possible?
+ *   Is this possible we have used const keyword?
  */
 
 // const arr = [1, 2, 1, 1, 2, 3, 2]
@@ -3387,41 +3403,41 @@ asyncCall();
  */
 
 
- /**
-  * 3. knowledge about this
-    
-    var fullname = 'John Doe';
-    var obj = {
-    fullname: 'Colin Ihrig',
-    prop:{
-      fullname: 'Aurelio De Rosa',
-      getFullname: function(){
-        return this.fullname;
-      }
-    },
-    getMyName: function(){
-      return this.fullname;
-    },
-    getFirstName: () =>{
-      return this.fullname.split(' ')[0];
-    },
-    getLastName: (function(){
-      return this.fullname.split(' ')[1];
-    })()
+/**
+ * 3. knowledge about this
+
+   var fullname = 'John Doe';
+   var obj = {
+   fullname: 'Colin Ihrig',
+   prop:{
+     fullname: 'Aurelio De Rosa',
+     getFullname: function(){
+       return this.fullname;
+     }
+   },
+   getMyName: function(){
+     return this.fullname;
+   },
+   getFirstName: () =>{
+     return this.fullname.split(' ')[0];
+   },
+   getLastName: (function(){
+     return this.fullname.split(' ')[1];
+   })()
 }
 
-  console.log(obj.prop.getFullname())
-  console.log(obj.getFirstName())
-  console.log(obj.getMyName())
-  console.log(obj.getLastName)
+ console.log(obj.prop.getFullname())
+ console.log(obj.getFirstName())
+ console.log(obj.getMyName())
+ console.log(obj.getLastName)
 
 
-  Answer: 
-    Aurelio De Rosa
-    John
-    Colin Ihrig
-    Doe
-  */
+ Answer:
+   Aurelio De Rosa
+   John
+   Colin Ihrig
+   Doe
+ */
 
 /**
  * 3. Objects
@@ -3440,32 +3456,84 @@ asyncCall();
  *
  */
 
- /**
-  * console.log(mul(2)(3)(4)); // 24
-  * 
-  * ans:
-  * 
-    function mul (x) {
-      return function (y) { // anonymous function
-        return function (z) { // anonymous function
-          return x * y * z;
-        };
-      };
-    }
-  */
+/**
+ * console.log(mul(2)(3)(4)); // 24
+ *
+ * ans:
+ *
+   function mul (x) {
+     return function (y) { // anonymous function
+       return function (z) { // anonymous function
+         return x * y * z;
+       };
+     };
+   }
+ */
 
-  /**
-   * Write a function which will returns 16 and 27
-   * 
-   * var addSix = createBase(6);
-   * console.log(addSix(10)); // returns 16
-   * console.log(addSix(21)); // returns 27
-   * 
-   * Answer:
-   * 
-      function createBase(val) {
-          return function(x) {
-              return x + val
-          }
-      }
-   */
+/**
+ * Write a function which will returns 16 and 27
+ *
+ * var addSix = createBase(6);
+ * console.log(addSix(10)); // returns 16
+ * console.log(addSix(21)); // returns 27
+ *
+ * Answer:
+ *
+    function createBase(val) {
+        return function(x) {
+            return x + val
+        }
+    }
+ */
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+ // Create our own Array using class
+
+/**
+ * class MyArray{
+  length = 0;
+  data = {};
+
+  push(item){
+    this.data[this.length] = item;
+    this.length++;
+  }
+
+  pop(){
+    delete this.data[this.length - 1];
+    this.length--;
+  }
+
+  getIndex(index){
+    return this.data[index]
+  }
+
+  delete(index){
+    const item = this.data[index];
+    this.shiftItems(index);
+  }
+
+  shiftItems(index){
+    for(let i = index; i < this.length-1; i++){
+      this.data[i] = this.data[i+1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+  }
+}
+
+const newArr = new MyArray();
+newArr.push('hey')
+newArr.push('you')
+newArr.push('are')
+newArr.push('sexy')
+// newArr.pop();
+// newArr.pop();
+// newArr.getIndex(3);
+newArr.delete(3);
+console.log(newArr)
+ */
+
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

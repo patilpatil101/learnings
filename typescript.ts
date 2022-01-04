@@ -175,6 +175,7 @@
  *      })
  */
 
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  * Tuples ->  return type:- combination of types and Gives Strictness when writing code
@@ -184,3 +185,58 @@
  * so we can use: roles: [2, 'rohit']
  *
  */
+
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Intersection types
+ */
+
+// type Admin = {    // Admin will have name and roles propertities
+//   name: string;
+//   roles: string[]
+// }
+
+// type Employeee = { // Employee will have name and startDate propertities
+//   name: string;
+//   startDate: Date;
+// }
+
+
+// now if you want to create super employee with 
+
+// this super employee requires all the propertities from Admin and Employee
+
+// e.g public class SuperEmployee extends Admin, Employee
+// type SuperEmployee = {
+//   name: string;
+//   roles: string[];
+//   startDate: Date;
+// }
+
+/**
+ * NOTE: instead of writing same code again & again use like this
+ *
+ * type SuperEmployee = Admin & Employee;
+ *
+ *  alternative of { public class SuperEmployee extends Admin, Employee }
+ *
+ */
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * How to create generics type for function A and function B
+ */
+
+// function A(): ?? {
+//   return {
+//     id: 1234
+//   };
+// }
+
+// function B(): ?? {
+//   return {
+//     id: "1234"
+//   }
+// }
+
+///////////////////////////////////////////////////////////////////////////////

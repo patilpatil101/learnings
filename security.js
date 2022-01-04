@@ -23,7 +23,8 @@
  *      localhost is origin here & its same.
  *
  *      To avoid this we need to set headers either we can set into front-end app or we can set it to back-end app
- *      for front-end we need to create --proxy.conf file
+ *
+ *      For front-end we need to create --proxy.conf file
  *      {
  *         "/api/*": {
  *             "target": "http://localhost:3000",

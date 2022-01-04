@@ -19,3 +19,11 @@
 /**
  * List of Ionic Commands
  */
+
+/**
+ * How to get current location
+ */
+
+/**
+ * Ionic Lifecycle hook
+ */

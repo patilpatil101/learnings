@@ -31,7 +31,7 @@
 /**
  *  Souce Map
  *
- * Ans: When we build the Angular application, js files and . js. map (source map files) files are created. At its core,
+ * Ans: When we build the Angular application, js files and js.map (source map) files are created. At its core,
  * a source map is a JSON file that contains all the necessary information to map the transpiled code back to the original sources.
  *
  * --source-map=false     => disable generation of source maps
@@ -52,8 +52,9 @@
  *         It creates a tree map & This map is useful for finding what are the npm packages that are adding the most to your bundle size
  *
  * How to Run?
- *    command:
- *      webpack-bundle-analyzer bundle/output/path/stats.json
+ *    commands:
+ *      1. generate stats.json => webpack --profile --json | Out-file 'stats.json' -Encoding OEM
+ *      2. run webpack bundle  => webpack-bundle-analyzer bundle/output/path/stats.json
  */
 
 /**

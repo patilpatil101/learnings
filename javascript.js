@@ -3,8 +3,62 @@
 /***********************************************************************************************************/
 
 /**
- * Javascript
+ * Javascript code ->(parsing -> compilation -> execution)
  */
+
+/**
+ * How JavaScript Works
+ * 
+ * Steps:
+ * 1. Works in JS engine (v8 of chrome, spidermonkey of firfox);
+ * 2. Code goes to -> Parsing phase (converts code into token and syntax tree create Abstract Syntax Tree which is nothing but a JSON object 
+ *              
+ * const userName = 'Rohit';
+ * 
+ * Only single line of code converts into below AST
+ * 
+ *  {
+  "type": "Program",
+  "start": 0,
+  "end": 25,
+  "body": [
+    {
+      "type": "VariableDeclaration",
+      "start": 0,
+      "end": 25,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 6,
+          "end": 24,
+          "id": {
+            "type": "Identifier",
+            "start": 6,
+            "end": 14,
+            "name": "userName"
+          },
+          "init": {
+            "type": "Literal",
+            "start": 17,
+            "end": 24,
+            "value": "Rohit",
+            "raw": "'Rohit'"
+          }
+        }
+      ],
+      "kind": "const"
+    }
+  ],
+  "sourceType": "module"
+}
+ * 
+ * 3. This AST goes to ->  Interpreter phase
+ * 4. Interpreter talks with JIT compiler (interpreter and compiler works together)
+ * 5. interpreter converts code into bytecode and Compiler optimize our code & convert into machine code.
+ * 6. then those converted bytecode gets executed.         
+ */
+
+
 
 // closure vs callback
 // Object.create() vs setPrototypeOf
@@ -1920,6 +1974,19 @@ __proto__: Object
 // methodCurrying.x().y().z();         //  inside x inside y inside z
 
 
+//  function add(x) {
+//   return function(y) {
+//       if (typeof y !== 'undefined') {
+//           x = x + y;
+//           return arguments.callee;
+//       } else {
+//           return x;
+//       }
+//   };
+// }
+// console.log(add(1)(2)(3)());//6
+
+
 /***********************************************************************************************************/
 /* Scope Chaining  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *
 /* Scope Chaining  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *  * Scope Chaining *
@@ -2373,6 +2440,14 @@ What is Destruction?
 /************************************ Promise Promise Promise Promise **************************************/
 /************************************ Promise Promise Promise Promise **************************************/
 
+/**
+ * When to use promise over Observable?
+ * You need to handle the(future response) event no matter what(no unsubscribe, no cancel: after you subscribe, there will be an answer, 100 %,
+ * and you will have to handle it, 100 %, the code will get executed)
+ *
+ * One Subscription = One Event handling: there will be only one event from the source, so the future response and the completition is the same event.
+ */
+
 // const p = new Promise((resolve, reject) => {
 //   a = 3;
 //   if (a == 4) {
@@ -2387,6 +2462,50 @@ What is Destruction?
 // }).catch((err) => {
 //   console.log(err);
 // })
+
+//// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
+/**
+ * throw will break the control flow and call the catch method
+ */
+
+// new Promise((resolve, reject) => {
+//   throw "err";
+//   console.log("NEVER REACHED");
+// })
+// .then(() => console.log("RESOLVED"))
+// 
+
+/**
+ * reject() will not break the running operations, Once operations done then it will call catch method.
+ */
+
+// new Promise((resolve, reject) => {
+//   reject(); // resolve() behaves similarly
+//   console.log("ALWAYS REACHED"); // "REJECTED" will print AFTER this
+// })
+// .then(() => console.log("RESOLVED"))
+// .catch(() => console.log("REJECTED"));
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+// function Test() {
+//   return new Promise(reject => reject(false));
+// }
+
+// Test()
+//   .then(x => console.log(x))
+//   .catch(x => console.log(x))
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// function Test(){
+
+// }
+
+// Test()
+//   .then(x => console.log(x))
+//   .catch(x => console.log(x))
+
 
 /************************************** Nested Promise *********************************************************************/
 /************************************** Nested Promise *********************************************************************/
@@ -3488,7 +3607,7 @@ asyncCall();
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
- // Create our own Array using class
+// Create our own Array using class
 
 /**
  * class MyArray{
@@ -3537,3 +3656,219 @@ console.log(newArr)
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+/***********************************************************************************************************/
+
+/**
+ * Difference between Throttling Time and Debounce Time
+ */
+
+
+/**
+* function composition
+*/
+
+/**
+ * Pure function vs Impure function
+ */
+
+
+/**
+ * Encapsulation in JS
+ */
+
+
+/**
+ * What is temporal dead zone when hoisting ?
+ *
+ *
+ */
+
+/**
+ * Problem solving
+ *
+ *
+Problem 1.
+
+Write a function that accepts a string representation of a chemical compound and returns a JSON object containing KV pairs where keys are the element symbols and the values are the element counts.
+  "H2O" => { "H": 2, "O": 1 }
+  "C6H12" => { "C": 6, "H": 12 }
+  "COOH" => { "C": 1, "O": 2, "H": 1 }
+   COOHO -> invalid
+
+   function createChemicalCompoundPair(str) {
+    const arr = str.split('')
+    for (let i = arr.length - 1; i >=0; i--){
+        if (isNaN(arr[i]) && i > 0) {
+            arr.splice(i, 0, ',');
+        }
+    }
+    let obj = {};
+    const newArr = arr.join('').split(',');
+    const arrSeperatedWithComma = insertCommaAfterChar(newArr);
+    arrSeperatedWithComma.forEach((v, k) => {
+        obj[v.split(',')[0]] = v.split(',')[1] ? v.split(',')[1] : 1;
+    })
+    console.log(obj)
+}
+
+function insertCommaAfterChar(newArr) {
+    //['C6','H1223'] => ['C,6','H,1223']
+    newAr1 = [];
+    newArr.forEach((v, k) => {
+        newAr1.push(v.replace(/.{1}/, '$&,'));
+    })
+    return newAr1 //['C,6','H,1223']
+}
+
+createChemicalCompoundPair('C6H12');
+*/
+
+// Problem 2.
+// var question = [
+//     { name: 'name1', age: 10 },
+//     { name: 'name2', age: 11 },
+//     { name: 'name3', age: 13 },
+//     { name: 'name4', age: 10 },
+//     { name: 'name5', age: 12 },
+//     { name: 'name6', age: 11 },
+//     { name: 'name7', age: 12 },
+//     { name: 'name20', age: 12 }
+// ];
+// output:
+// var ans = {
+//     10: {
+//         nameList: ['name1', 'name4'],
+//         count: 2
+//     },
+//     11: {
+//         nameList: ['name2', 'name6'],
+//         count: 2
+//     },
+//     // .....
+// }
+
+// function grouping(question) {
+//     const obj = {};
+//     question.forEach((v, k) => {
+//         if (obj[[v.age]]) {
+//             obj[[v.age]].nameList.push(v.name);
+//             obj[[v.age]].count = obj[[v.age]].nameList.length;
+//         } else {
+//             obj[[v.age]] = { nameList: [v.name], count: 1 }
+//         }
+//     })
+//     console.log(obj)
+// }
+// grouping(question);
+
+
+// Problem 3.
+
+// const str = 'hello world'
+// o/p 'Hello World'
+
+// Problem 4.
+
+// const arr = [3, 6,2,-7,4,0,-5,-8,6,'a']
+// [-7, -5,-8, 3, 6, 2, 4, 0,6]
+
+// Problem 5.
+
+// Given two pre - sorted arrays of integers, merge them into one sorted array that should contain distinct integers.Do not use Array.sort & Array.includes method.For e.g
+// Input: A = [1, 2, 3, 5, 7], B = [2, 3, 6]
+// Output: [1, 2, 3, 5, 6, 7]
+
+
+// Problem 6.
+
+//['C6','H1223'] => ['C,6','H,1223']
+
+// Problem 7.
+// const inputObj = {
+//   key1: {
+//     key2: {
+//       key3: 3,
+//       key4: {
+//         key5: 5
+//       }
+//     }
+//   },
+//   key8:{
+//     key6: 9
+//   },
+//   key9: 9
+// }
+
+//outputObj = {key3: 3, key5: 5, key6:9, key9: 9}
+
+
+// problem 8.
+
+// const person = {
+//   name: 'Rohit',
+//   getName: function(){
+//     console.log(this.name)
+//   }
+// }
+
+// const person2 = {
+//   name: 'Harshal'
+// }
+
+// person.getName()
+
+// I want output "Harshal"
+// person.getName.call(person2) // Harshal
+
+
+// Problem 9.
+
+// let arr = [3,1,2,9];
+// let arr1 = [99,1,2,9];
+// let arr2 = [4, 1, 22, 9];
+
+// arr.max() // 9
+// arr.max() // 99
+// arr.max() // 22
+
+// // create our own max function
+
+// Array.prototype.findMax = function () {
+//     return this.sort((a,b)=>b-a)[0];
+// }
+// console.log(arr.findMax());
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+/**
+ * which one is the pure function
+ */
+// function TestA(a) {
+//   a = a + 1;
+//   return a;
+// }
+// Test(1);
+
+
+// function TestB(a) {
+//   return a + 1;
+// }
+// Test(1);
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+

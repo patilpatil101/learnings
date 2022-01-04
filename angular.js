@@ -491,3 +491,79 @@
  *
  *
  */
+
+/**********************************************************************************************************************************************/
+/**********************************************************************************************************************************************/
+
+
+/**
+ * What is difference between Subject, BehaviourSubject and ReplaySubject
+ *
+ * Subject: It will not hold any value (Only Upcoming Values)
+ * BehaviourSubject: We can set initial value and it can hold one value (One Previous Value & Upcoming Values)
+ * ReplaySubject: It can hold more than one value.(All Previous Values & Upcoming Values)
+ * AsyncSubject: (Latest Value when stream will close)
+ */
+
+
+/******** RXJS ************************* RXJS *********************** RXJS ************ RXJS ********** RXJS *************** RXJS *************************************************/
+/******** RXJS ***************** RXJS ************* RXJS ****************** RXJS ********** RXJS ******** RXJS ************** RXJS ******************************************************/
+
+/**
+ * How RXJS works?
+ */
+
+
+/**
+ * What is map and switchMap?
+ *
+ *      Observable => is a data source which emit the data
+ *      Subscribe => which receives the emitted data.
+ *
+ *      Observable I have uploaded the video to my channel
+ *      -----(Youtube Video 1)-----(Youtube Video 2)-----(Youtube Video 3)------->
+ *
+ *      those who subscribe my channel they will get my videos
+ *
+ *      -----(Youtube Video 1)-----(Youtube Video 2)-----(Youtube Video 3)------->
+ *
+ * .map() => Transformation Operator used to transform the items emited by an overvable by applying a function to each item.
+ *
+ *
+ * SwitchMap() => take latest data and cancel all other request.
+ * => used for flattening
+ *
+ */
+
+
+/**
+ * What is Flattening?
+ * => Flattening means rescue when we have a nested subscription.
+ *    i.e, Observable ke resopnse ke under aur ek observable
+ */
+
+
+/**
+ * What is ExhaustMap? We use this to improve app performance
+ *      (cancels all clicks event and only take the latest click.)
+ *
+ * E.g:
+ *     consider Login button will have login api.
+ *     If we call login button multiple times very fastly it will impact on our application performance because multiple api will fire.
+ *
+ *     to avoid this we use Exhaust Map.
+ *
+ */
+
+/**
+ * .tap() operator in rxjs?
+ *
+ * tap will perform an action like click event
+ * Tap operator is useful for logging the value, debugging the stream for the correct values, or perform any other side effects.
+ *
+ * .tap(()=>{console.log("log any value")})
+ */
+
+/**
+ * List few operator in rxjs?
+ */

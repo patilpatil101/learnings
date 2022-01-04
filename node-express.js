@@ -164,3 +164,33 @@
 /********** Explain util & http package ********** Explain util & http package ************* Explain util & http package *******/
 /********** Explain util & http package ********** Explain util & http package ************* Explain util & http package *******/
 /********** Explain util & http package ********** Explain util & http package ************* Explain util & http package *******/
+
+
+/**
+ * How to debug express app?
+ *  =>
+ */
+
+/**
+ * What is the difference between Framework, Library and Environment
+ */
+
+/**
+ * How to handle concurrency in nodejs?
+ */
+
+/**
+ * Error first callback vs normal callback
+ */
+
+/**
+ * What is thread pool?
+ */
+
+/**
+ * What is Libuv?
+ */
+
+/**
+ * What is next paramter in express js?
+ */

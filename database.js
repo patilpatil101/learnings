@@ -221,3 +221,21 @@
 /******** How to write queries using profiler ****** How to write queries using profiler ********** How to write queries using profiler ****************/
 /******** How to write queries using profiler ****** How to write queries using profiler ********** How to write queries using profiler ****************/
 /******** How to write queries using profiler ****** How to write queries using profiler ********** How to write queries using profiler ****************/
+
+
+/**
+ * What is scaleout in mongodb?
+ */
+
+/**
+ * Is mongodb allows ACID Transction?
+ *
+ * Transcation (also called multi-documents transactions)
+ */
+
+/**
+ * MongoDB uses BSON rather than JSON why?
+ */
+
+
+/***********************************************************************************************************/
